@@ -308,30 +308,30 @@
                     <h4 class="contacto-sub-titulo">Respondo a la Brevedad</h4>
                     <!--Formulario start-->
                     <div class="row">
-                        <div class="contacto-form padd-15">
+                        <form action="/submit-form" method="post" class="contacto-form padd-15">
                             <div class="row">
                                 <div class="form-item col-6 padd-15">
                                     <div class="form-grupo">
-                                        <input type="text" class="form-control" placeholder="Nombre">
+                                        <input type="text"  name="name" class="form-control" placeholder="Nombre" required>
                                     </div>
                                 </div>
                                 <div class="form-item col-6 padd-15">
                                     <div class="form-grupo">
-                                        <input type="email" class="form-control" placeholder="Email">
+                                        <input type="email" class="form-control"  name="email" placeholder="Email" required>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-item col-12 padd-15">
                                     <div class="form-grupo">
-                                        <input type="text" class="form-control" placeholder="Asunto">
+                                        <input type="text" class="form-control" name="subject" placeholder="Asunto" required>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-item col-12 padd-15">
                                     <div class="form-grupo">
-                                        <textarea name="" class="form-control" placeholder="Mensaje"></textarea>
+                                        <textarea class="form-control" name="message" placeholder="Mensaje" required></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -342,7 +342,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </section>
