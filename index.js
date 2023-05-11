@@ -4,7 +4,7 @@ const nodemailer = require('nodemailer');
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.post('/submit-form', (req, res) => {
+app.post('/api/submit-form', (req, res) => {
     const name = req.body.name;
     const email = req.body.email;
     const subject = req.body.subject;
@@ -38,4 +38,5 @@ app.post('/submit-form', (req, res) => {
       }
     });
   });
+  app.listen(3000, () => console.log('Server started on port 3000'));
   
