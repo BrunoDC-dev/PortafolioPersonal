@@ -307,41 +307,41 @@
                     <h4 class="contacto-sub-titulo">Respondo a la Brevedad</h4>
                     <!--Formulario start-->
                     <div class="row">
-                        <form action="https://verceldeploy-theta.vercel.app/home/api/submit-form" method="post" class="contacto-form padd-15">
+                        <div class="contacto-form padd-15">
                             <div class="row">
                                 <div class="form-item col-6 padd-15">
                                     <div class="form-grupo">
-                                        <input type="text"  name="name" class="form-control" placeholder="Nombre" required>
+                                        <input type="text" id="name"  name="name" class="form-control" placeholder="Nombre" required>
                                     </div>
                                 </div>
                                 <div class="form-item col-6 padd-15">
                                     <div class="form-grupo">
-                                        <input type="email" class="form-control"  name="email" placeholder="Email" required>
+                                        <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-item col-12 padd-15">
                                     <div class="form-grupo">
-                                        <input type="text" class="form-control" name="subject" placeholder="Asunto" required>
+                                        <input type="text" class="form-control" id="subject" name="subject" placeholder="Asunto" required>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-item col-12 padd-15">
                                     <div class="form-grupo">
-                                        <textarea class="form-control" name="message" placeholder="Mensaje" required></textarea>
+                                        <textarea class="form-control" name="message" id="message"placeholder="Mensaje" required></textarea>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-item col-12 padd-15">
                                     <div class="form-grupo">
-                                        <button type="submit" class="btn">Enviar</button>
+                                        <button type="submit" class="btn" onclick="email()">Enviar</button>
                                     </div>
                                 </div>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -371,6 +371,85 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js" referrerpolicy="no-referrer"></script>
     <script src="/Js/funciones.js"></script>
     <script src="/Js/style-switcher.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+
+        function email() {
+            let name= document.getElementById('name').value
+            let email = document.getElementById('email').value
+            let subject = document.getElementById('subject').value
+            let message= document.getElementById('message').value
+            
+  // Check if the name is valid
+  if (name.trim() === "") {
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Por favor ingrese su nombre',
+    });
+    return;
+  }
+
+  // Check if the email is valid using a regex
+  var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Por favor ingrese un correo electrónico válido',
+    });
+    return;
+  }
+
+  // Check if the subject is valid
+  if (subject.trim() === "") {
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Por favor ingrese el asunto',
+    });
+    return;
+  }
+
+  // Check if the message is valid
+  if (message.trim() === "") {
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Por favor ingrese el mensaje',
+    });
+    return;
+  }
+        
+            
+            axios.post('https://verceldeploy-theta.vercel.app/home/api/submit-form', {
+                name:name,
+                email:email,
+                subject:subject,
+                message:message
+            })
+            .then(function (response) {
+           // Reset the value of each input field to blank
+    document.getElementById("name").value = "";
+    document.getElementById("email").value = "";
+    document.getElementById("subject").value = "";
+    document.getElementById("message").value = "";
+
+    // Display a success message
+    Swal.fire({
+      icon: 'success',
+      title: '¡Gracias!',
+      text: 'Su mensaje ha sido enviado con éxito.',
+    });
+            })
+            .catch(function (error) {
+                    console.log(error);
+            });
+
+        }
+
+    </script>
 </body>
 
 </html>
