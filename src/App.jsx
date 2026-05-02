@@ -1,8 +1,10 @@
 const links = [
   { label: "Home", href: "#home" },
   { label: "Work", href: "#work" },
-  { label: "Contact", href: "#contact" },
+  { label: "Contact", href: "https://calendly.com/brunodecruz" },
 ];
+
+const calendlyUrl = "https://calendly.com/brunodecruz";
 
 const companies = [
   "Mercado Libre",
@@ -127,7 +129,7 @@ function App() {
             with a founder-minded approach to AI, data, automation and product work.
           </p>
           <div className="profile-links">
-            <a href="#contact">Book a call</a>
+            <a href={calendlyUrl}>Book a call</a>
             <a href="https://www.linkedin.com/in/bruno-de-cruz/">LinkedIn</a>
             <a href="https://github.com/BrunoDC-dev">GitHub</a>
             <a href="mailto:brunodecruz.05@gmail.com">Email</a>
@@ -148,9 +150,9 @@ function App() {
 
         <div id="contact" className="contact-note">
           <p>
-            Calendly coming soon. For now, reach me through{" "}
-            <a href="mailto:brunodecruz.05@gmail.com">email</a> or{" "}
-            <a href="https://www.linkedin.com/in/bruno-de-cruz/">LinkedIn</a>.
+            Want to talk through an idea, workflow, or product?{" "}
+            <a href={calendlyUrl}>Book a call</a> or reach me through{" "}
+            <a href="mailto:brunodecruz.05@gmail.com">email</a>.
           </p>
         </div>
       </section>
