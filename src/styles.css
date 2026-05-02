@@ -223,10 +223,22 @@ h1 {
   border-color: #1f55d6;
 }
 
+.companies-block {
+  margin: 72px 0 0;
+}
+
+.companies-label {
+  margin: 0 0 14px;
+  color: #666;
+  font-size: 0.72rem;
+  font-weight: 780;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
 .marquee {
   width: 100%;
   border-block: 1px solid rgba(23, 23, 23, 0.14);
-  margin: 72px 0 0;
   overflow: hidden;
   padding: 24px 0;
 }
@@ -291,6 +303,25 @@ h1 {
   color: #525d6b;
   font-size: 1rem;
   line-height: 1.45;
+}
+
+.contact-note {
+  border-top: 1px solid rgba(23, 23, 23, 0.14);
+  margin-top: 48px;
+  padding-top: 24px;
+}
+
+.contact-note p {
+  max-width: 680px;
+  margin: 0;
+  color: #525d6b;
+  font-size: 1.04rem;
+  line-height: 1.55;
+}
+
+.contact-note a {
+  color: #1f55d6;
+  font-weight: 780;
 }
 
 @media (prefers-reduced-motion: reduce) {

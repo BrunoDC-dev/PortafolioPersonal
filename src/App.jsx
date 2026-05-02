@@ -1,7 +1,7 @@
 const links = [
   { label: "Home", href: "#home" },
   { label: "Work", href: "#work" },
-  { label: "Contact", href: "mailto:brunodecruz.05@gmail.com" },
+  { label: "Contact", href: "#contact" },
 ];
 
 const companies = [
@@ -9,30 +9,28 @@ const companies = [
   "Universidad de San Andres",
   "Blue Nose",
   "Decreditos",
-  "HackITBA",
-  "JPMorgan Chase Hackathon",
 ];
 
 const work = [
   {
     company: "Mercado Libre",
-    context: "Fraud Prevention",
-    description: "Data science in risk, decisions and high-scale product systems.",
+    context: "Security & Fraud Prevention",
+    description: "Data science, risk signals and decision systems in a high-scale marketplace.",
   },
   {
     company: "Universidad de San Andres",
-    context: "AI research + teaching",
-    description: "Applied intelligent systems, programming paradigms and academic work.",
+    context: "AI Research & Teaching",
+    description: "Applied intelligent systems, programming paradigms and technical communication.",
   },
   {
     company: "Blue Nose",
-    context: "CRM integrations",
-    description: "Backend services, HubSpot workflows and operational automation.",
+    context: "CRM Consulting",
+    description: "HubSpot integrations, backend services and automation for business operations.",
   },
   {
     company: "Decreditos",
-    context: "Full stack development",
-    description: "APIs, product features and systems connected to real users.",
+    context: "Finance",
+    description: "Full-stack product work, APIs and systems connected to financial workflows.",
   },
 ];
 
@@ -76,13 +74,16 @@ function CompanyMarquee() {
   const repeated = [...companies, ...companies];
 
   return (
-    <div className="marquee" aria-label="Companies and institutions">
-      <div className="marquee-track">
-        {repeated.map((company, index) => (
-          <span key={`${company}-${index}`} className="company-wordmark">
-            {company}
-          </span>
-        ))}
+    <div className="companies-block">
+      <p className="companies-label">Companies I’ve worked with</p>
+      <div className="marquee" aria-label="Companies I have worked with">
+        <div className="marquee-track">
+          {repeated.map((company, index) => (
+            <span key={`${company}-${index}`} className="company-wordmark">
+              {company}
+            </span>
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -123,9 +124,10 @@ function App() {
           <h1 id="profile-title">Bruno De Cruz</h1>
           <p>
             Data Scientist at Mercado Libre. Building useful systems from real problems,
-            with a focus on fraud prevention, AI, data and software.
+            with a founder-minded approach to AI, data, automation and product work.
           </p>
           <div className="profile-links">
+            <a href="#contact">Book a call</a>
             <a href="https://www.linkedin.com/in/bruno-de-cruz/">LinkedIn</a>
             <a href="https://github.com/BrunoDC-dev">GitHub</a>
             <a href="mailto:brunodecruz.05@gmail.com">Email</a>
@@ -134,7 +136,7 @@ function App() {
 
         <CompanyMarquee />
 
-        <div className="work-list" aria-label="Work experience">
+        <div className="work-list" aria-label="Companies and areas">
           {work.map((item) => (
             <article key={item.company} className="work-item">
               <span>{item.company}</span>
@@ -142,6 +144,14 @@ function App() {
               <p>{item.description}</p>
             </article>
           ))}
+        </div>
+
+        <div id="contact" className="contact-note">
+          <p>
+            Calendly coming soon. For now, reach me through{" "}
+            <a href="mailto:brunodecruz.05@gmail.com">email</a> or{" "}
+            <a href="https://www.linkedin.com/in/bruno-de-cruz/">LinkedIn</a>.
+          </p>
         </div>
       </section>
     </main>
