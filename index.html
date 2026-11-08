@@ -7,11 +7,18 @@
       name="description"
       content="Bruno De Cruz, AI & Data Builder. Small useful systems from real problems."
     />
-    <meta name="theme-color" content="#f6f4ee" />
+    <meta name="theme-color" content="#f0f0f0" />
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <script>
+      try {
+        document.documentElement.dataset.theme = localStorage.getItem("portfolio-theme") === "dark" ? "dark" : "light";
+      } catch {
+        document.documentElement.dataset.theme = "light";
+      }
+    </script>
     <title>Bruno De Cruz | AI & Data Builder</title>
   </head>
   <body>

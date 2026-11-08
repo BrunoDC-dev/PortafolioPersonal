@@ -1,17 +1,12 @@
+import { useEffect, useLayoutEffect, useState } from "react";
+
 const links = [
-  { label: "Home", href: "#home" },
-  { label: "Work", href: "#work" },
-  { label: "Contact", href: "https://calendly.com/brunodecruz" },
+  { label: "home", href: "#home" },
+  { label: "work", href: "#work" },
+  { label: "contact", href: "#contact" },
 ];
 
 const calendlyUrl = "https://calendly.com/brunodecruz";
-
-const companies = [
-  "Mercado Libre",
-  "Universidad de San Andres",
-  "Blue Nose",
-  "Decreditos",
-];
 
 const work = [
   {
@@ -36,127 +31,117 @@ const work = [
   },
 ];
 
-function NeuralBackground() {
+function ThemeIcon({ theme }) {
   return (
-    <div className="neural-bg" aria-hidden="true">
-      <svg viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice">
-        <g className="network network-a">
-          <path d="M90 420 L250 260 L410 360 L570 210 L770 310 L960 170 L1120 260" />
-          <path d="M180 520 L410 360 L610 480 L770 310 L1040 520" />
-          <path d="M250 260 L610 480 L960 170" />
-          <circle cx="90" cy="420" r="5" />
-          <circle cx="250" cy="260" r="7" />
-          <circle cx="410" cy="360" r="5" />
-          <circle cx="570" cy="210" r="8" />
-          <circle cx="770" cy="310" r="6" />
-          <circle cx="960" cy="170" r="8" />
-          <circle cx="1120" cy="260" r="5" />
-          <circle cx="180" cy="520" r="6" />
-          <circle cx="610" cy="480" r="7" />
-          <circle cx="1040" cy="520" r="6" />
-        </g>
-        <g className="network network-b">
-          <path d="M150 180 L340 130 L520 250 L690 120 L850 260 L1050 210" />
-          <path d="M340 130 L420 500 L690 120 L930 450" />
-          <circle cx="150" cy="180" r="4" />
-          <circle cx="340" cy="130" r="5" />
-          <circle cx="520" cy="250" r="4" />
-          <circle cx="690" cy="120" r="5" />
-          <circle cx="850" cy="260" r="4" />
-          <circle cx="1050" cy="210" r="6" />
-          <circle cx="420" cy="500" r="5" />
-          <circle cx="930" cy="450" r="5" />
-        </g>
-      </svg>
-    </div>
-  );
-}
-
-function CompanyMarquee() {
-  const repeated = [...companies, ...companies];
-
-  return (
-    <div className="companies-block">
-      <p className="companies-label">Companies I’ve worked with</p>
-      <div className="marquee" aria-label="Companies I have worked with">
-        <div className="marquee-track">
-          {repeated.map((company, index) => (
-            <span key={`${company}-${index}`} className="company-wordmark">
-              {company}
-            </span>
-          ))}
-        </div>
-      </div>
-    </div>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      {theme === "light" ? (
+        <>
+          <circle cx="12" cy="12" r="4" />
+          <path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42" />
+        </>
+      ) : (
+        <path d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z" />
+      )}
+    </svg>
   );
 }
 
 function App() {
-  return (
-    <main>
-      <NeuralBackground />
+  const [theme, setTheme] = useState(() => document.documentElement.dataset.theme || "light");
+  const [activeHash, setActiveHash] = useState(() => window.location.hash || "#home");
 
-      <header className="site-header">
-        <a className="brand" href="#home">
-          Bruno De Cruz
-        </a>
-        <nav aria-label="Primary navigation">
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    document.querySelector('meta[name="theme-color"]').content = theme === "dark" ? "#131212" : "#f0f0f0";
+    try {
+      localStorage.setItem("portfolio-theme", theme);
+    } catch {
+      // Theme switching still works when browser storage is unavailable.
+    }
+  }, [theme]);
+
+  useEffect(() => {
+    const updateHash = () => setActiveHash(window.location.hash || "#home");
+    window.addEventListener("hashchange", updateHash);
+    return () => window.removeEventListener("hashchange", updateHash);
+  }, []);
+
+  useLayoutEffect(() => {
+    const section = document.getElementById(window.location.hash.slice(1));
+    if (section) section.scrollIntoView({ behavior: "instant" });
+  }, []);
+
+  return (
+    <>
+      <a className="skip-link" href="#work">Skip to content</a>
+      <header id="home" className="site-header">
+        <a className="brand" href="#home">Bruno De Cruz</a>
+        <nav className="navigation" aria-label="Primary navigation">
           {links.map((link) => (
-            <a key={link.label} href={link.href}>
-              {link.label}
+            <a key={link.href} href={link.href} aria-current={activeHash === link.href ? "location" : undefined}>
+              <span className="nav-slash" aria-hidden="true">/</span>
+              <span className="nav-label">{link.label}</span>
             </a>
           ))}
         </nav>
+        <button
+          className="theme-toggle"
+          type="button"
+          onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+          aria-label={theme === "light" ? "Switch to dark theme" : "Switch to light theme"}
+          title={theme === "light" ? "Switch to dark theme" : "Switch to light theme"}
+        >
+          <ThemeIcon theme={theme} />
+        </button>
       </header>
 
-      <section id="home" className="quote-hero" aria-labelledby="quote">
-        <div className="quote-block">
-          <p id="quote" className="quote">
-            “Whatever you build,
-            <br />
-            build it with your whole heart.”
-          </p>
-          <p className="quote-source">Inspired by Colossians 3:23</p>
-        </div>
-      </section>
+      <main className="page-content">
+        <section className="quote-hero" aria-label="A thought to build by">
+          <blockquote className="quote">
+            <p>“Whatever you build,<br />build it with your whole heart.”</p>
+            <cite>Inspired by Colossians 3:23</cite>
+          </blockquote>
+        </section>
 
-      <section id="work" className="profile-section" aria-labelledby="profile-title">
-        <div className="profile-intro">
-          <p className="eyebrow">AI & Data Builder</p>
+        <a className="section-jump" href="#work">work <span aria-hidden="true">↓</span></a>
+
+        <section id="work" className="profile-section" aria-labelledby="profile-title">
           <h1 id="profile-title">Bruno De Cruz</h1>
-          <p>
+          <p className="role">AI & Data Builder</p>
+          <p className="bio">
             Data Scientist at Mercado Libre. Building useful systems from real problems,
             with a founder-minded approach to AI, data, automation and product work.
           </p>
-          <div className="profile-links">
+          <div className="profile-links" aria-label="Find me online">
             <a href={calendlyUrl}>Book a call</a>
             <a href="https://www.linkedin.com/in/bruno-de-cruz/">LinkedIn</a>
             <a href="https://github.com/BrunoDC-dev">GitHub</a>
             <a href="mailto:brunodecruz.05@gmail.com">Email</a>
           </div>
-        </div>
 
-        <CompanyMarquee />
+          <h2 className="experience-heading">Companies I’ve worked with</h2>
+          <div className="work-list">
+            {work.map((item) => (
+              <article key={item.company} className="work-item">
+                <h3>{item.company}</h3>
+                <p className="work-context">{item.context}</p>
+                <p>{item.description}</p>
+              </article>
+            ))}
+          </div>
+        </section>
 
-        <div className="work-list" aria-label="Companies and areas">
-          {work.map((item) => (
-            <article key={item.company} className="work-item">
-              <span>{item.company}</span>
-              <strong>{item.context}</strong>
-              <p>{item.description}</p>
-            </article>
-          ))}
-        </div>
-
-        <div id="contact" className="contact-note">
+        <section id="contact" className="contact-section" aria-labelledby="contact-title">
+          <h2 id="contact-title">Contact</h2>
+          <p>Want to talk through an idea, workflow, or product?</p>
           <p>
-            Want to talk through an idea, workflow, or product?{" "}
             <a href={calendlyUrl}>Book a call</a> or reach me through{" "}
             <a href="mailto:brunodecruz.05@gmail.com">email</a>.
           </p>
-        </div>
-      </section>
-    </main>
+        </section>
+        <footer className="site-footer"><a href="#home">back to top <span aria-hidden="true">↑</span></a></footer>
+      </main>
+    </>
   );
 }
 
